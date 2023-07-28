@@ -9,4 +9,4 @@ from flask import jsonify
 def status():
     """index route"""
     status = {"status": "OK"}
-    return jsonify(status)
+    return jsonify(status), 200
