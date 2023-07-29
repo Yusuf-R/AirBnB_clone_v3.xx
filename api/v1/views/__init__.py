@@ -12,7 +12,7 @@ def get_match(cls, id):
     """get match by id"""
     state = storage.get(cls, id)
     if state:
-        return jsonify(state.to_dict())
+        return make_response(jsonify(state.to_dict()))
     abort(404)
 
 
