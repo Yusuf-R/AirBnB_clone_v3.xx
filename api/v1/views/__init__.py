@@ -12,7 +12,7 @@ def get_match(cls, id):
     """get match by id"""
     state = storage.get(cls, id)
     if state:
-        return make_response(jsonify(state.to_dict()))
+        return jsonify(state.to_dict())
     abort(404)
 
 
@@ -29,7 +29,7 @@ def delete_match(cls, id):
 def create_new(cls, **kwargs):
     """create new object"""
     obj = cls(**kwargs)
-    storage.new(obj)
+    # storage.new(obj)
     storage.save()
     return make_response(jsonify(obj.to_dict()), 201)
 
