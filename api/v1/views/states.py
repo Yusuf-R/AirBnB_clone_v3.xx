@@ -3,7 +3,7 @@
 from models.state import State
 from flask import abort, jsonify, make_response, request
 from api.v1.views import app_views
-from models import storage
+from models import storage  
 from api.v1.views import *
 
 
@@ -18,7 +18,7 @@ def states(state_id):
     if not state_id:
         states = [state.to_dict() for state in storage.all(State).values()]
         return make_response(jsonify(states))
-
+   
     return get_match(State, state_id)
 
 

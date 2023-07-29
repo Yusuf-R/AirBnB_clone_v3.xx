@@ -29,7 +29,7 @@ def delete_match(cls, id):
 def create_new(cls, **kwargs):
     """create new object"""
     obj = cls(**kwargs)
-    # storage.new(obj)
+    storage.new(obj)
     storage.save()
     return make_response(jsonify(obj.to_dict()), 201)
 
