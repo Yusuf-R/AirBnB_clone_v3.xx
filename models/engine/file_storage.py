@@ -71,13 +71,10 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """returns the object based on the class name and id"""
-        if cls not in classes.values():
-            return None
-        all_classes = models.storge.all(cls)
-        for val in all_classes.values():
-            if val.id == id:
-                return val
+        """Get is a method to retrieve one object"""
+        if cls and id:
+            key_name = "{}.{}".format(cls.__name__, id)
+            return self.all(cls).get(key_name)
         else:
             return None
 
