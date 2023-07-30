@@ -31,7 +31,7 @@ def delete_state(state_id):
 @app_views.route('/states', strict_slashes=False, methods=['POST'])
 def create_state():
     """POST a state object"""
-    if not request.is_json:
+    if not request.get_json():
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     if "name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name"}), 400)
@@ -42,7 +42,7 @@ def create_state():
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def update_state(state_id):
     """PUT a state object"""
-    if not request.is_json():
+    if not request.get_json():
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     match_state = storage.get(State, state_id)
     if not match_state:
