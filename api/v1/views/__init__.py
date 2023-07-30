@@ -9,15 +9,15 @@ app_views = Blueprint("app_views", __name__, url_prefix="/api/v1")
 
 
 def get_match(cls, id):
-    """get match by id"""
+    """GET: get match by id"""
     state = storage.get(cls, id)
     if state:
-        return make_response(jsonify(state.to_dict()))
+        return jsonify(state.to_dict())
     abort(404)
 
 
 def delete_match(cls, id):
-    """delete match by id"""
+    """DELETE: delete match by id"""
     obj = storage.get(cls, id)
     if not obj:
         abort(404)
@@ -27,15 +27,15 @@ def delete_match(cls, id):
 
 
 def create_new(cls, **kwargs):
-    """create new object"""
+    """POST: create new object"""
     obj = cls(**kwargs)
-    storage.new(obj)
+    # storage.new(obj)
     storage.save()
     return make_response(jsonify(obj.to_dict()), 201)
 
 
 def update_match(match_state, **kwargs):
-    """update the content of our dictonary attribute"""
+    """PUT: update a state obj"""
     exempt = ['id', 'created_at', 'updated_at']
     for key, value in kwargs.items():
         if key not in exempt:
