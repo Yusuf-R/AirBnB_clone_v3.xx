@@ -12,19 +12,26 @@ from models.review import Review
 from models import storage
 
 
-@app_views.route('/status', methods=['GET'])
+@app_views.route("/status", methods=["GET"])
 def status():
     """index route"""
     status = {"status": "OK"}
     return jsonify(status), 200
 
 
-@app_views.route('/stats', methods=['GET'])
+@app_views.route("/stats", methods=["GET"])
 def stats():
     """index route"""
-    return jsonify({"amenities": storage.count(Amenity),
-                    "cities": storage.count(City),
-                    "places": storage.count(Place),
-                    "reviews": storage.count(Review),
-                    "states": storage.count(State),
-                    "users": storage.count(User)}), 200
+    return (
+        jsonify(
+            {
+                "amenities": storage.count(Amenity),
+                "cities": storage.count(City),
+                "places": storage.count(Place),
+                "reviews": storage.count(Review),
+                "states": storage.count(State),
+                "users": storage.count(User),
+            }
+        ),
+        200,
+    )

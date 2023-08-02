@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """model for blue print view"""
 
-from flask import  Blueprint
+from flask import Blueprint
 from flask import jsonify, make_response, abort
 from models import storage
 from models.user import User
@@ -55,7 +55,9 @@ def create_new(p_cls, ch_cls, p_id, **kwargs):
         if obj is None:
             abort(404)
         obj_list = [review.to_dict() for review in obj.reviews]
-        key_placeID = p_cls.__name__.lower() + "_id" # this will give is place_id
+        key_placeID = (
+            p_cls.__name__.lower() + "_id"
+        )  # this will give is place_id
         kwargs[key_placeID] = p_id
         obj = ch_cls(**kwargs)
         obj.save()
@@ -79,7 +81,15 @@ def create_new(p_cls, ch_cls, p_id, **kwargs):
 
 def update_match(match_obj, **kwargs):
     """PUT: update a state obj"""
-    exempt = ['id', 'created_at', 'updated_at', 'state_id', 'email', 'place_id', 'user_id']
+    exempt = [
+        "id",
+        "created_at",
+        "updated_at",
+        "state_id",
+        "email",
+        "place_id",
+        "user_id",
+    ]
     for key, value in kwargs.items():
         if key not in exempt:
             setattr(match_obj, key, value)
@@ -94,3 +104,4 @@ from api.v1.views.amenities import *
 from api.v1.views.users import *
 from api.v1.views.places import *
 from api.v1.views.places_reviews import *
+from api.v1.views.places_amenities import *
